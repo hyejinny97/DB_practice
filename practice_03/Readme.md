@@ -23,6 +23,8 @@ customers       invoice_items   playlist_track
 
 > albums 테이블
 
+💡 데이터 구조
+
 ```sql
 .schema albums
 ```
@@ -44,6 +46,8 @@ CREATE INDEX [IFK_AlbumArtistId] ON "albums" ([ArtistId]);
 
 ↳ aritists 테이블의 ArtistId 컬럼을 참조해서 albums 테이블에 ArtistId 컬럼을 외래 키로 만듦
 
+💡 일부 데이터 조회
+
 ```sql
 SELECT * FROM albums LIMIT 5;
 ```
@@ -57,6 +61,8 @@ AlbumId  Title                                  ArtistId
 4        Let There Be Rock                      1
 5        Big Ones                               3
 ```
+
+💡 원하는 데이터 조회
 
 ```sql
 SELECT COUNT(*) FROM albums WHERE title = '' or ArtistId = '';
@@ -72,6 +78,8 @@ COUNT(*)
 
 > artists 테이블
 
+💡 데이터 구조
+
 ```sql
 .schema artists
 ```
@@ -84,6 +92,8 @@ CREATE TABLE IF NOT EXISTS "artists"
 );
 ```
 ↳ name 컬럼의 데이터에는 NULL이 들어올 수 있음
+
+💡 일부 데이터 조회
 
 ```sql
 SELECT * FROM artists LIMIT 5;
@@ -99,6 +109,8 @@ ArtistId  Name
 5         Alice In Chains
 ```
 
+💡 원하는 데이터 조회
+
 ```sql
 SELECT COUNT(*) FROM artists WHERE Name = '' OR Name IS NULL;
 ```
@@ -112,6 +124,8 @@ COUNT(*)
 
 
 > customers 테이블
+
+💡 데이터 구조
 
 ```sql
 .schema customers
@@ -146,21 +160,22 @@ CREATE INDEX [IFK_CustomerSupportRepId] ON "customers" ([SupportRepId]);
 
 ↳ employees 테이블의 EmployeeId 컬럼을 참조해서 customers 테이블에 SupportRepId 컬럼을 외래 키로 만듦
 
+💡 일부 데이터 조회
+
 ```sql
-SELECT CustomerId, FirstName, LastName, Company, Address FROM customers LIMIT 1;
-SELECT City, State, Country, PostalCode, Phone, Fax, Email, SupportRepId FROM customers LIMIT 1;
+SELECT * FROM customers LIMIT 3;
 ```
 
 ```
-CustomerId  FirstName  LastName   Company                                           Address
-----------  ---------  ---------  ------------------------------------------------  -------------------------------
-1           Luis       Goncalves  Embraer - Empresa Brasileira de Aeronautica S.A.  Av. Brigadeiro Faria Lima, 2170
-
-City                 State  Country  PostalCode  Phone               Fax                 Email                 SupportRepId
--------------------  -----  -------  ----------  ------------------  ------------------  --------------------  ------------
-Sao Jose dos Campos  SP     Brazil   12227-000   +55 (12) 3923-5555  +55 (12) 3923-5566  luisg@embraer.com.br  3
+CustomerId  FirstName  LastName   Company                                           Address                          City                 State  Country  PostalCode  Phone               Fax                 Email                  SupportRepId
+----------  ---------  ---------  ------------------------------------------------  -------------------------------  -------------------  -----  -------  ----------  ------------------  ------------------  ---------------------  ------------
+1           Luis       Goncalves  Embraer - Empresa Brasileira de Aeronautica S.A.  Av. Brigadeiro Faria Lima, 2170  Sao Jose dos Campos  SP     Brazil   12227-000   +55 (12) 3923-5555  +55 (12) 3923-5566  luisg@embraer.com.br   3
+2           Leonie     Kohler                                                       Theodor-Heuss-Straße 34          Stuttgart                   Germany   
+70174       +49 0711 2842222                        leonekohler@surfeu.de  5
+3           Francois   Tremblay                                                     1498 rue Belanger                Montreal             QC     Canada   H2G 1A7     +1 (514) 721-4711                       ftremblay@gmail.com    3
 ```
-↳ 컬럼이 너무 많아 반으로 나눠 조회
+
+💡 원하는 데이터 조회
 
 ```sql
 SELECT COUNT(*) FROM customers WHERE Company = '' OR Company is NULL;
@@ -175,6 +190,8 @@ COUNT(*)
 
 
 > employees 테이블
+
+💡 데이터 구조
 
 ```sql
 .schema employees
@@ -211,21 +228,21 @@ CREATE INDEX [IFK_EmployeeReportsTo] ON "employees" ([ReportsTo]);
 
 ↳ employees 테이블 자신의 EmployeeId 컬럼을 참조해서 employees 테이블에 ReportsTo 컬럼을 외래 키로 만듦
 
+💡 일부 데이터 조회
+
 ```sql
-SELECT EmployeeId, LastName, FirstName, Title, ReportsTo, BirthDate, HireDate FROM employees LIMIT 1;
-SELECT Address, City, State, Country, PostalCode, Phone, Fax, Email FROM employees LIMIT 1;
+SELECT * FROM employees LIMIT 3;
 ```
 
 ```
-EmployeeId  LastName  FirstName  Title            ReportsTo  BirthDate            HireDate
-----------  --------  ---------  ---------------  ---------  -------------------  -------------------
-1           Adams     Andrew     General Manager             1962-02-18 00:00:00  2002-08-14 00:00:00
-
-Address              City      State  Country  PostalCode  Phone              Fax                Email
--------------------  --------  -----  -------  ----------  -----------------  -----------------  ----------------------
-11120 Jasper Ave NW  Edmonton  AB     Canada   T5K 2N1     +1 (780) 428-9482  +1 (780) 428-3457  andrew@chinookcorp.com
+EmployeeId  LastName  FirstName  Title                ReportsTo  BirthDate            HireDate             Address              City      State  Country  PostalCode  Phone              Fax                Email
+----------  --------  ---------  -------------------  ---------  -------------------  -------------------  -------------------  --------  -----  -------  ----------  -----------------  -----------------  ----------------------
+1           Adams     Andrew     General Manager                 1962-02-18 00:00:00  2002-08-14 00:00:00  11120 Jasper Ave NW  Edmonton  AB     Canada   T5K 2N1     +1 (780) 428-9482  +1 (780) 428-3457  andrew@chinookcorp.com
+2           Edwards   Nancy      Sales Manager        1          1958-12-08 00:00:00  2002-05-01 00:00:00  825 8 Ave SW         Calgary   AB     Canada   T2P 2T3     +1 (403) 262-3443  +1 (403) 262-3322  nancy@chinookcorp.com
+3           Peacock   Jane       Sales Support Agent  2          1973-08-29 00:00:00  2002-04-01 00:00:00  1111 6 Ave SW        Calgary   AB     Canada   T2P 5M5     +1 (403) 262-3443  +1 (403) 262-6712  jane@chinookcorp.com
 ```
-↳ 컬럼이 너무 많아 반으로 나눠 조회
+
+💡 원하는 데이터 조회
 
 ```sql
 SELECT EmployeeId, LastName FROM employees WHERE ReportsTo is NULL;
@@ -240,6 +257,8 @@ EmployeeId  LastName
 
 > genres 테이블
 
+💡 데이터 구조
+
 ```sql
 .schema genres
 ```
@@ -252,6 +271,8 @@ CREATE TABLE IF NOT EXISTS "genres"
 );
 ```
 ↳ Name 컬럼의 데이터에는 NULL이 들어올 수 있음
+
+💡 일부 데이터 조회
 
 ```sql
 SELECT * FROM genres LIMIT 5;
@@ -267,6 +288,8 @@ GenreId  Name
 5        Rock And Roll
 ```
 
+💡 원하는 데이터 조회
+
 ```sql
 SELECT COUNT(*) FROM genres;
 ```
@@ -280,6 +303,8 @@ COUNT(*)
 
 
 > invoice_items 테이블
+
+💡 데이터 구조
 
 ```sql
 .schema invoice_items
@@ -309,6 +334,8 @@ CREATE INDEX [IFK_InvoiceLineTrackId] ON "invoice_items" ([TrackId]);
 
 ↳ tracks 테이블의 TrackId 컬럼을 참조해서 invoice_items 테이블에 TrackId 컬럼을 외래 키로 만듦
 
+💡 일부 데이터 조회
+
 ```sql
 SELECT * FROM invoice_items LIMIT 5;
 ```
@@ -322,6 +349,8 @@ InvoiceLineId  InvoiceId  TrackId  UnitPrice  Quantity
 4              2          8        0.99       1
 5              2          10       0.99       1
 ```
+
+💡 원하는 데이터 조회
 
 ```sql
 SELECT UnitPrice FROM invoice_items GROUP BY UnitPrice;
@@ -337,6 +366,8 @@ UnitPrice
 
 
 > invoices 테이블
+
+💡 데이터 구조
 
 ```sql
 .schema invoices
@@ -365,6 +396,8 @@ CREATE INDEX [IFK_InvoiceCustomerId] ON "invoices" ([CustomerId]);
 
 ↳ customers 테이블의 CustomerId 컬럼을 참조해서 invoices 테이블에 CustomerId 컬럼을 외래 키로 만듦
 
+💡 일부 데이터 조회
+
 ```sql
 SELECT * FROM invoices LIMIT 5;
 ```
@@ -378,6 +411,8 @@ InvoiceId  CustomerId  InvoiceDate          BillingAddress           BillingCity
 4          14          2009-01-06 00:00:00  8210 111 ST NW           Edmonton     AB            Canada          T6G 2C7            8.91
 5          23          2009-01-11 00:00:00  69 Salem Street          Boston       MA            USA             2113               13.86
 ```
+
+💡 원하는 데이터 조회
 
 ```sql
 SELECT CustomerId, Max(Total) FROM invoices;
@@ -393,6 +428,8 @@ CustomerId  Max(Total)
 
 > media_types 테이블
 
+💡 데이터 구조
+
 ```sql
 .schema media_types
 ```
@@ -406,6 +443,7 @@ CREATE TABLE IF NOT EXISTS "media_types"
 ```
 ↳ Name 컬럼의 데이터에는 NULL이 들어올 수 있음
 
+💡 일부 데이터 조회
 
 ```sql
 SELECT * FROM media_types LIMIT 5;
@@ -420,6 +458,8 @@ MediaTypeId  Name
 4            Purchased AAC audio file
 5            AAC audio file
 ```
+
+💡 원하는 데이터 조회
 
 ```sql
 SELECT * FROM media_types WHERE Name LIKE '%audio file';
@@ -437,6 +477,8 @@ MediaTypeId  Name
 
 
 > playlist_track 테이블
+
+💡 데이터 구조
 
 ```sql
 .schema playlist_track
@@ -463,6 +505,8 @@ CREATE INDEX [IFK_PlaylistTrackTrackId] ON "playlist_track" ([TrackId]);
 
 ↳ 동시에 ([PlaylistId], [TrackId])를 기본 키로 설정
 
+💡 일부 데이터 조회
+
 ```sql
 SELECT * FROM playlist_track LIMIT 5;
 ```
@@ -476,6 +520,8 @@ PlaylistId  TrackId
 1           3391
 1           3392
 ```
+
+💡 원하는 데이터 조회
 
 ```sql
 SELECT COUNT(*) FROM playlist_track;
@@ -514,6 +560,8 @@ PlaylistId  COUNT(TrackId)
 
 > playlists 테이블
 
+💡 데이터 구조
+
 ```sql
 .schema playlists
 ```
@@ -527,6 +575,7 @@ CREATE TABLE IF NOT EXISTS "playlists"
 ```
 ↳ Name 컬럼의 데이터에는 NULL이 들어올 수 있음
 
+💡 일부 데이터 조회
 
 ```sql
 SELECT * FROM playlists LIMIT 5;
@@ -542,6 +591,8 @@ PlaylistId  Name
 5           90’s Music
 ```
 
+💡 원하는 데이터 조회
+
 ```sql
 SELECT COUNT(*) FROM playlists;
 ```
@@ -555,6 +606,8 @@ COUNT(*)
 
 
 > tracks 테이블
+
+💡 데이터 구조
 
 ```sql
 .schema tracks
@@ -593,16 +646,22 @@ CREATE INDEX [IFK_TrackMediaTypeId] ON "tracks" ([MediaTypeId]);
 
 ↳ media_types 테이블의 MediaTypeId 컬럼을 참조해서 tracks 테이블에 MediaTypeId 컬럼을 외래 키로 만듦
 
+💡 일부 데이터 조회
 
 ```sql
-SELECT * FROM tracks LIMIT 1;
+SELECT * FROM tracks LIMIT 3;
 ```
 
 ```
-TrackId  Name                                     AlbumId  MediaTypeId  GenreId  Composer                                   Milliseconds  Bytes     UnitPrice
--------  ---------------------------------------  -------  -----------  -------  -----------------------------------------  ------------  --------  ---------
-1        For Those About To Rock (We Salute You)  1        1            1        Angus Young, Malcolm Young, Brian Johnson  343719        11170334  0.99   
+TrackId  Name                                     AlbumId  MediaTypeId  GenreId  Composer                                             Milliseconds  Bytes  
+   UnitPrice
+-------  ---------------------------------------  -------  -----------  -------  ---------------------------------------------------  ------------  --------  ---------
+1        For Those About To Rock (We Salute You)  1        1            1        Angus Young, Malcolm Young, Brian Johnson            343719        11170334  0.99
+2        Balls to the Wall                        2        2            1                                                             342562        5510424   0.99
+3        Fast As a Shark                          3        2            1        F. Baltes, S. Kaufman, U. Dirkscneider & W. Hoffman  230619        3990994   0.99
 ```
+
+💡 원하는 데이터 조회
 
 ```sql
 SELECT GenreId, ROUND(AVG(Milliseconds)) FROM tracks GROUP BY GenreId;
