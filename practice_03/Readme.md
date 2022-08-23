@@ -1262,9 +1262,43 @@ FROM invoice_items "A"
     ON B.CustomerId = C.CustomerId
 ORDER BY A.InvoiceId DESC
 LIMIT 5;
+
+SELECT A.InvoiceLineId, B.InvoiceId, C.CustomerId
+FROM invoice_items "A" 
+  JOIN invoices "B"
+    ON A.InvoiceId = B.InvoiceId
+  JOIN customers "C"
+    ON B.CustomerId = C.CustomerId
+ORDER BY B.InvoiceId DESC
+LIMIT 5;
+
+SELECT A.InvoiceLineId, A.InvoiceId, C.CustomerId
+FROM invoice_items "A" 
+  JOIN invoices "B"
+    ON A.InvoiceId = B.InvoiceId
+  JOIN customers "C"
+    ON B.CustomerId = C.CustomerId
+ORDER BY A.InvoiceId DESC
+LIMIT 5;
 ```
 
 ```
+InvoiceLineId  InvoiceId  CustomerId
+-------------  ---------  ----------
+2240           412        58
+2239           411        44
+2238           411        44
+2237           411        44
+2236           411        44
+
+InvoiceLineId  InvoiceId  CustomerId
+-------------  ---------  ----------
+2240           412        58
+2226           411        44
+2227           411        44
+2228           411        44
+2229           411        44
+
 InvoiceLineId  InvoiceId  CustomerId
 -------------  ---------  ----------
 2240           412        58
