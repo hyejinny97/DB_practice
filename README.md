@@ -4,7 +4,7 @@
 - [healthcare table 생성, 원하는 데이터 조회 실습(2022.08.16~18)](https://github.com/hyejinny97/DB_practice/tree/master/practice_02)
 - [sample DB에서 데이터 조회 실습(2022.08.19~)](https://github.com/hyejinny97/DB_practice/tree/master/practice_03)
 - [데이터베이스 모델링, ERD 작성 실습(2022.08.23)](https://github.com/hyejinny97/DB_practice/tree/master/practice_04)
-- [ORM(Object Relational Mapping) 실습(2022.08.24)](https://github.com/hyejinny97/DB_practice/tree/master/practice_05)
+- [ORM(Object Relational Mapping) 실습(2022.08.24~25)](https://github.com/hyejinny97/DB_practice/tree/master/practice_05)
 
 
 # 🧩 SQL Test Platform
